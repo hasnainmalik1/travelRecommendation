@@ -1,59 +1,85 @@
-// Fetch travel data from JSON file
-let travelData;
+// Fetch travel data from JSON file and provide search/clear functionality
+let travelData = [];
 
 fetch('travel_recommendation_api.json')
     .then(response => response.json())
     .then(data => {
-        travelData = data;
+        // support both { destinations: [...] } and top-level array
+        travelData = data.destinations || data || [];
         console.log('Data loaded:', travelData);
     })
     .catch(error => console.error('Error loading data:', error));
 
+function singularize(term) {
+    term = term.trim().toLowerCase();
+    // quick plural handling: beaches -> beach, temples -> temple, countries -> country
+    if (term.endsWith('es')) return term.slice(0, -2);
+    if (term.endsWith('s')) return term.slice(0, -1);
+    return term;
+}
+
 function searchDestinations() {
-    const searchInput = document.getElementById('searchInput').value.toLowerCase();
+    const raw = (document.getElementById('searchInput') || { value: '' }).value;
+    const searchTerm = singularize(raw);
     const resultsContainer = document.getElementById('results');
     resultsContainer.innerHTML = ''; // Clear previous results
 
-    if (!travelData) {
-        console.error('Travel data not loaded yet');
+    if (!travelData || travelData.length === 0) {
+        console.error('Travel data not loaded yet or empty');
+        resultsContainer.innerHTML = '<p style="color:#a00">No data available.</p>';
         return;
     }
 
-    // Filter destinations based on search keyword
-    const filteredDestinations = travelData.filter(destination => {
-        const searchTerm = searchInput.toLowerCase();
-        return destination.type.toLowerCase().includes(searchTerm) ||
-               destination.name.toLowerCase().includes(searchTerm) ||
-               destination.country.toLowerCase().includes(searchTerm);
+    if (!searchTerm) {
+        resultsContainer.innerHTML = '<p>Please enter a keyword such as "beach", "temple" or a country name.</p>';
+        return;
+    }
+
+    // Filter destinations. Match on type, name, country, or description.
+    const filtered = travelData.filter(dest => {
+        const type = (dest.type || '').toLowerCase();
+        const name = (dest.name || '').toLowerCase();
+        const country = (dest.country || '').toLowerCase();
+        const desc = (dest.description || '').toLowerCase();
+
+        return type.includes(searchTerm) ||
+               name.includes(searchTerm) ||
+               country.includes(searchTerm) ||
+               desc.includes(searchTerm);
     });
 
-    // Display results
-    filteredDestinations.forEach(destination => {
+    if (filtered.length === 0) {
+        resultsContainer.innerHTML = `<p>No recommendations found for "${raw}".</p>`;
+        return;
+    }
+
+    // Render result cards
+    filtered.forEach(destination => {
         const card = document.createElement('div');
         card.className = 'recommendation-card';
         card.innerHTML = `
             <img src="${destination.imageUrl}" alt="${destination.name}">
             <h3>${destination.name}</h3>
             <p>${destination.description}</p>
-            <p>Location: ${destination.country}</p>
-            ${destination.currentTime ? `<p>Local Time: ${getLocalTime(destination.timezone)}</p>` : ''}
+            <p><strong>Location:</strong> ${destination.country || '—'}</p>
+            ${destination.timezone ? `<p><strong>Local Time:</strong> ${getLocalTime(destination.timezone)}</p>` : ''}
         `;
         resultsContainer.appendChild(card);
     });
 }
 
 function clearResults() {
-    document.getElementById('searchInput').value = '';
-    document.getElementById('results').innerHTML = '';
+    const input = document.getElementById('searchInput');
+    if (input) input.value = '';
+    const resultsContainer = document.getElementById('results');
+    if (resultsContainer) resultsContainer.innerHTML = '';
 }
 
 function getLocalTime(timezone) {
-    const options = { 
-        timeZone: timezone, 
-        hour12: true, 
-        hour: 'numeric', 
-        minute: 'numeric', 
-        second: 'numeric' 
-    };
-    return new Date().toLocaleTimeString('en-US', options);
+    try {
+        const options = { timeZone: timezone, hour12: true, hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        return new Date().toLocaleTimeString('en-US', options);
+    } catch (e) {
+        return '';
+    }
 }

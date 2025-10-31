@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - TravelBloom</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin:0; padding:0; }
+        .navbar { background:#333; padding:12px; }
+        .navbar a { color:#fff; text-decoration:none; margin-right:12px; }
+        .container { padding:24px; }
+        form { max-width:480px; display:flex; flex-direction:column; gap:12px; }
+        input, textarea { padding:8px; font-size:14px; border:1px solid #ccc; border-radius:4px; }
+        button { padding:10px 14px; border:none; background:#007bff; color:#fff; border-radius:4px; cursor:pointer; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="travel_recommendation.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p>If you have questions or feedback, send us a message.</p>
+
+        <form id="contactForm">
+            <input type="text" id="name" placeholder="Your name" required />
+            <input type="email" id="email" placeholder="Your email" required />
+            <textarea id="message" rows="6" placeholder="Your message" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+
+        <div id="feedback" style="margin-top:12px;color:green"></div>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            // For this lab we simply show a confirmation message. In a real app we'd POST to a server.
+            document.getElementById('feedback').textContent = `Thanks ${name}! Your message has been received.`;
+            document.getElementById('contactForm').reset();
+        });
+    </script>
+</body>
+</html>

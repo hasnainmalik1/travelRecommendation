@@ -2,19 +2,51 @@
     "destinations": [
         {
             "type": "beach",
-            "name": "Bali Beaches",
-            "country": "Indonesia",
-            "description": "Beautiful beaches with crystal clear waters and white sand.",
-            "imageUrl": "path/to/bali-image.jpg",
-            "timezone": "Asia/Makassar"
+            "name": "Copacabana Beach",
+            "country": "Brazil",
+            "description": "Famous Rio beach with lively atmosphere, golden sand and seaside promenades.",
+            "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80&auto=format&fit=crop",
+            "timezone": "America/Sao_Paulo"
+        },
+        {
+            "type": "beach",
+            "name": "Whitehaven Beach",
+            "country": "Australia",
+            "description": "Pristine white sand beach located in the Whitsundays — known for its silica sand and clear water.",
+            "imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&q=80&auto=format&fit=crop",
+            "timezone": "Australia/Brisbane"
         },
         {
             "type": "temple",
             "name": "Angkor Wat",
             "country": "Cambodia",
-            "description": "Ancient temple complex showcasing incredible Khmer architecture.",
-            "imageUrl": "path/to/angkor-wat-image.jpg",
+            "description": "Iconic Khmer temple complex with sunrise views and intricate bas-reliefs.",
+            "imageUrl": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&q=80&auto=format&fit=crop",
             "timezone": "Asia/Phnom_Penh"
+        },
+        {
+            "type": "temple",
+            "name": "Golden Temple (Harmandir Sahib)",
+            "country": "India",
+            "description": "The spiritual centre of the Sikh faith, renowned for its golden architecture and peaceful sarovar.",
+            "imageUrl": "https://images.unsplash.com/photo-1549888834-5c9e8b48d68f?w=1200&q=80&auto=format&fit=crop",
+            "timezone": "Asia/Kolkata"
+        },
+        {
+            "type": "country",
+            "name": "Japan",
+            "country": "Japan",
+            "description": "A country of contrasts — modern cities, ancient temples, cherry blossoms and rich cuisine.",
+            "imageUrl": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1200&q=80&auto=format&fit=crop",
+            "timezone": "Asia/Tokyo"
+        },
+        {
+            "type": "country",
+            "name": "Italy",
+            "country": "Italy",
+            "description": "Renowned for its history, art, architecture, cuisine and scenic countryside regions.",
+            "imageUrl": "https://images.unsplash.com/photo-1506806732259-39c2d0268443?w=1200&q=80&auto=format&fit=crop",
+            "timezone": "Europe/Rome"
         }
     ]
 }

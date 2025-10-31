@@ -1,0 +1,20 @@
+{
+    "destinations": [
+        {
+            "type": "beach",
+            "name": "Bali Beaches",
+            "country": "Indonesia",
+            "description": "Beautiful beaches with crystal clear waters and white sand.",
+            "imageUrl": "path/to/bali-image.jpg",
+            "timezone": "Asia/Makassar"
+        },
+        {
+            "type": "temple",
+            "name": "Angkor Wat",
+            "country": "Cambodia",
+            "description": "Ancient temple complex showcasing incredible Khmer architecture.",
+            "imageUrl": "path/to/angkor-wat-image.jpg",
+            "timezone": "Asia/Phnom_Penh"
+        }
+    ]
+}
